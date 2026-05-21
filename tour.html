@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오리진투어 | Tour</title>
+<meta name="description" content="오리진투어의 국가별 골프투어 상세 안내.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        forest: { 50:'#f3f5fc', 100:'#dfe4f2', 500:'#2A3C7A', 700:'#15265A', 900:'#0B1B3D' },
+        sand:   { 100:'#f1f3f8', 300:'#c4cbd8', 500:'#8b94a8', 700:'#5b6478' },
+        brand:  { 300:'#5B7AD1', 500:'#1E47B5', 700:'#163688' },
+      },
+      fontFamily: {
+        sans: ['Pretendard','Inter','Apple SD Gothic Neo','system-ui','sans-serif'],
+        serif: ['Cormorant Garamond','serif'],
+      }
+    }
+  }
+}
+</script>
+<style>
+html { scroll-behavior: smooth; }
+body { font-family: 'Pretendard','Inter','Apple SD Gothic Neo',sans-serif; color:#0a2a21; }
+.font-display { font-family:'Cormorant Garamond', serif; font-weight:500; letter-spacing:-0.01em; }
+
+.tour-hero {
+  background-color:#15265A;
+  background-size: cover; background-position: center;
+}
+.tour-hero::before {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(125deg, rgba(11,27,61,0.85) 0%, rgba(11,27,61,0.35) 60%, rgba(11,27,61,0.75) 100%);
+}
+
+.card { overflow:hidden; }
+.card .card-img { transition: transform 1s cubic-bezier(.2,.7,.2,1); }
+.card:hover .card-img { transform: scale(1.08); }
+
+.reveal { opacity:0; transform: translateY(28px); transition: opacity .9s ease, transform .9s ease; }
+.reveal.in { opacity:1; transform: translateY(0); }
+
+.nav-link { position:relative; padding:.25rem 0; }
+.nav-link::after { content:''; position:absolute; left:0; bottom:-6px; height:1.5px; width:0; background:#c9a961; transition: width .3s ease; }
+.nav-link:hover::after, .nav-link.active::after { width:100%; }
+
+header.solid { background: rgba(11,27,61,.95); backdrop-filter: blur(12px); box-shadow: 0 1px 0 rgba(255,255,255,.06); }
+
+#mobile-menu { transform: translateX(100%); transition: transform .35s ease; }
+#mobile-menu.open { transform: translateX(0); }
+
+.aspect-tour { aspect-ratio: 4/5; }
+.aspect-wide { aspect-ratio: 16/10; }
+.aspect-card { aspect-ratio: 3/2; }
+
+.timeline-dot { width:14px; height:14px; border-radius:9999px; background:#1E47B5; border:3px solid #15265A; }
+</style>
+</head>
+<body class="bg-stone-50">
+
+<!-- ========== HEADER ========== -->
+<header id="header" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 solid">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
+    <a href="index.html" class="flex items-center group">
+      <img src="assets/origintour-logo.png" alt="ORIGINTOUR" class="h-5 w-auto" style="filter: brightness(0) invert(1);">
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-9 text-[14px] text-white/90">
+      <a href="index.html#about" class="nav-link">회사소개</a>
+      <div class="relative group">
+        <a href="index.html#golf" class="nav-link flex items-center gap-1.5">
+          골프투어
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4.5l3 3 3-3"/></svg>
+        </a>
+        <div class="absolute top-full left-1/2 -translate-x-1/2 pt-5 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition duration-200">
+          <div class="bg-white shadow-2xl rounded-sm py-3 w-56 border border-stone-100">
+            <a href="tour.html#usa-hawaii-europe" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">미주/하와이/유럽</a>
+            <a href="tour.html#japan" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">일본</a>
+            <a href="tour.html#thailand" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">태국</a>
+            <a href="tour.html#vietnam" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">베트남</a>
+            <a href="tour.html#philippines" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">필리핀</a>
+            <a href="tour.html#mongolia" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">몽골</a>
+            <a href="tour.html#value-sea" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">동남아 가성비</a>
+          </div>
+        </div>
+      </div>
+      <div class="relative group">
+        <a href="index.html#vip" class="nav-link flex items-center gap-1.5">
+          VIP투어
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4.5l3 3 3-3"/></svg>
+        </a>
+        <div class="absolute top-full left-1/2 -translate-x-1/2 pt-5 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition duration-200">
+          <div class="bg-white shadow-2xl rounded-sm py-3 w-56 border border-stone-100">
+            <a href="tour.html#spain-portugal" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">스페인 & 포르투갈</a>
+            <a href="tour.html#croatia" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">크로아티아</a>
+          </div>
+        </div>
+      </div>
+      <a href="index.html#reviews" class="nav-link">여행후기</a>
+      <a href="index.html#contact" class="nav-link">고객센터</a>
+    </nav>
+
+    <div class="hidden lg:flex items-center gap-4">
+      <a href="tel:070-4349-1724" class="text-white/80 text-sm hover:text-sand-300">070-4349-1724</a>
+      <a href="index.html#contact" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-500 text-white font-semibold text-sm hover:bg-brand-700 transition">
+        여행 신청
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <button id="menu-btn" class="lg:hidden text-white" aria-label="menu">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ========== MOBILE MENU ========== -->
+<aside id="mobile-menu" class="fixed inset-y-0 right-0 w-[85%] max-w-sm bg-forest-900 z-[60] p-8 flex flex-col">
+  <div class="flex justify-end">
+    <button id="menu-close" class="text-white" aria-label="close">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+    </button>
+  </div>
+  <nav class="mt-8 space-y-5 text-white text-xl font-display overflow-y-auto flex-1">
+    <a href="index.html#about" class="block">회사소개</a>
+    <div>
+      <div class="text-white">골프투어</div>
+      <ul class="mt-2 pl-3 space-y-1.5 text-sm text-white/70 font-sans">
+        <li><a href="tour.html#usa-hawaii-europe" class="block py-1">· 미주/하와이/유럽</a></li>
+        <li><a href="tour.html#japan" class="block py-1">· 일본</a></li>
+        <li><a href="tour.html#thailand" class="block py-1">· 태국</a></li>
+        <li><a href="tour.html#vietnam" class="block py-1">· 베트남</a></li>
+        <li><a href="tour.html#philippines" class="block py-1">· 필리핀</a></li>
+        <li><a href="tour.html#mongolia" class="block py-1">· 몽골</a></li>
+        <li><a href="tour.html#value-sea" class="block py-1">· 동남아 가성비</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="text-white">VIP투어</div>
+      <ul class="mt-2 pl-3 space-y-1.5 text-sm text-white/70 font-sans">
+        <li><a href="tour.html#spain-portugal" class="block py-1">· 스페인 & 포르투갈</a></li>
+        <li><a href="tour.html#croatia" class="block py-1">· 크로아티아</a></li>
+      </ul>
+    </div>
+    <a href="index.html#reviews" class="block">여행후기</a>
+    <a href="index.html#contact" class="block">고객센터</a>
+  </nav>
+</aside>
+
+<!-- ========== TOUR HERO ========== -->
+<section id="tour-hero" class="tour-hero relative h-[68vh] min-h-[480px] flex items-end">
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10 pb-16 lg:pb-24 w-full text-white">
+    <a href="index.html#golf" class="reveal inline-flex items-center gap-2 text-white/70 text-sm mb-6 hover:text-sand-300">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      전체 투어 보기
+    </a>
+    <p id="tour-region" class="reveal text-sand-300 text-[11px] tracking-[0.4em] mb-4"></p>
+    <h1 id="tour-title" class="reveal font-display text-[clamp(2.2rem,5vw,4rem)] leading-[1.1] mb-4"></h1>
+    <p id="tour-subtitle" class="reveal text-white/75 text-lg max-w-2xl"></p>
+  </div>
+</section>
+
+<!-- ========== INTRO + HIGHLIGHTS ========== -->
+<section class="py-20 lg:py-28 bg-stone-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-5 gap-16">
+    <div class="lg:col-span-2 reveal">
+      <p class="text-sand-700 text-[11px] tracking-[0.4em] mb-5">OVERVIEW</p>
+      <h2 class="font-display text-4xl text-forest-900 leading-tight mb-6">투어 소개.</h2>
+      <p id="tour-intro" class="text-stone-700 text-base leading-[1.85]"></p>
+    </div>
+    <div class="lg:col-span-3 reveal">
+      <p class="text-sand-700 text-[11px] tracking-[0.4em] mb-5">HIGHLIGHTS</p>
+      <h2 class="font-display text-4xl text-forest-900 leading-tight mb-10">오리진만의 특별함.</h2>
+      <div id="tour-highlights" class="grid sm:grid-cols-2 gap-x-8 gap-y-10"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== RECOMMENDED COURSES ========== -->
+<section class="py-20 lg:py-28 bg-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between mb-12">
+      <div>
+        <p class="text-sand-700 text-[11px] tracking-[0.4em] mb-5">RECOMMENDED</p>
+        <h2 id="courses-title" class="font-display text-4xl lg:text-5xl text-forest-900">추천 코스.</h2>
+      </div>
+      <p class="text-stone-600 max-w-sm mt-6 md:mt-0">오리진이 직접 선별한 베스트 라운드 / 명소.</p>
+    </div>
+    <div id="tour-courses" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </div>
+</section>
+
+<!-- ========== ITINERARY ========== -->
+<section class="py-20 lg:py-28 bg-forest-900 text-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="reveal mb-14">
+      <p class="text-sand-300 text-[11px] tracking-[0.4em] mb-5">SAMPLE ITINERARY</p>
+      <h2 class="font-display text-4xl lg:text-5xl">표준 일정.</h2>
+      <p class="text-white/60 text-sm mt-4 max-w-xl">시즌·인원에 따라 맞춤 조정 가능합니다. 일정 중 둘러보는 대표 명소를 함께 안내드립니다.</p>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+      <ol id="tour-itinerary" class="relative space-y-10 pl-8 border-l border-white/15"></ol>
+      <div id="tour-landmarks" class="grid grid-cols-2 gap-3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GALLERY ========== -->
+<section class="py-20 lg:py-28 bg-stone-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="reveal mb-12">
+      <p class="text-sand-700 text-[11px] tracking-[0.4em] mb-5">GALLERY</p>
+      <h2 class="font-display text-4xl lg:text-5xl text-forest-900">생생한 현장.</h2>
+    </div>
+    <div id="tour-gallery" class="grid grid-cols-2 lg:grid-cols-4 gap-4"></div>
+  </div>
+</section>
+
+<!-- ========== OTHER TOURS ========== -->
+<section class="py-20 lg:py-28 bg-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="reveal mb-12">
+      <p class="text-sand-700 text-[11px] tracking-[0.4em] mb-5">OTHER DESTINATIONS</p>
+      <h2 class="font-display text-4xl lg:text-5xl text-forest-900">다른 투어 둘러보기.</h2>
+    </div>
+    <div id="other-tours" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"></div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section class="py-24 lg:py-32 bg-forest-900 text-white relative overflow-hidden">
+  <div class="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-sand-500/10 blur-3xl"></div>
+  <div class="relative max-w-4xl mx-auto px-6 lg:px-10 text-center">
+    <p class="reveal text-sand-300 text-[11px] tracking-[0.4em] mb-6">RESERVATION</p>
+    <h2 class="reveal font-display text-4xl lg:text-6xl leading-[1.1] mb-8">
+      이 투어로<br/><em class="not-italic text-sand-300">떠나시겠습니까?</em>
+    </h2>
+    <p class="reveal text-white/70 mb-10">맞춤 일정과 견적을 상담사가 직접 안내해드립니다.</p>
+    <div class="reveal flex flex-wrap justify-center gap-3">
+      <a href="tel:070-4349-1724" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-brand-500 text-white font-semibold hover:bg-brand-700 transition">
+        070-4349-1724
+      </a>
+      <a href="index.html#contact" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/40 hover:bg-white hover:text-forest-900 transition">
+        문의 보내기
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-forest-900 text-white/60 border-t border-white/10 py-12">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+    <div class="flex items-center gap-4">
+      <img src="assets/origintour-logo.png" alt="ORIGINTOUR" class="h-5 w-auto opacity-90" style="filter: brightness(0) invert(1);">
+      <div class="text-xs">
+        <div class="text-white">(주)오리진투어</div>
+        <div>대표 송종선 · 사업자 482-88-03508</div>
+      </div>
+    </div>
+    <div class="text-xs">서울시 성동구 성수일로 99 서울숲AK밸리 지식산업센터 802-38호</div>
+    <div class="text-xs">© 2026 Origin Tour</div>
+  </div>
+</footer>
+
+<!-- ========== TOUR DATA + RENDER ========== -->
+<script>
+const U = (id, w=1400) => `https://images.unsplash.com/photo-${id}?w=${w}&q=85&auto=format&fit=crop`;
+
+const tours = {
+  'usa-hawaii-europe': {
+    region: 'USA · HAWAII · EUROPE',
+    title: '미주 · 하와이 · 유럽',
+    subtitle: '평생 단 한 번, 꿈의 페어웨이로.',
+    hero: U('1500932334442-8761ee4810a7', 2000),
+    intro: '페블비치의 절벽, 와이키키의 햇살, 스코틀랜드 링크스의 바람. 오리진투어가 직접 설계한 최고 수준의 글로벌 골프 여행입니다. 비즈니스 직항, 5성급 숙박, 명문 코스 라운드 보장. 평생 잊지 못할 한 번의 라운드를 약속합니다.',
+    highlights: [
+      { num:'01', t:'비즈니스 직항', d:'미주·유럽 노선 비즈니스 옵션 제공' },
+      { num:'02', t:'5성급 숙박', d:'명문 코스 인근 최상위 호텔 보장' },
+      { num:'03', t:'전속 캐디', d:'라운드별 영어 가능 캐디 동반' },
+      { num:'04', t:'한국인 인솔', d:'전 일정 한국인 전문 인솔자 동행' }
+    ],
+    coursesTitle: '추천 코스.',
+    courses: [
+      { n:'Pebble Beach', r:'California, USA', d:'태평양 절벽 위의 전설적인 코스.', i:'1500932334442-8761ee4810a7' },
+      { n:'Waikoloa Beach', r:'Big Island, Hawaii', d:'화산암과 바다가 어우러진 명문.', i:'1518509562904-e7ef99cddc85' },
+      { n:'St Andrews', r:'Fife, Scotland', d:'골프의 성지, 오리지널 링크스.', i:'1587174486073-ae5e5cff23aa' }
+    ],
+    itinerary: [
+      { d:'DAY 1', t:'인천 → LA / 호놀룰루 / 런던 직항' },
+      { d:'DAY 2-3', t:'시차 적응 + 첫 라운드' },
+      { d:'DAY 4-6', t:'명문 코스 라운드 (3-4회)' },
+      { d:'DAY 7', t:'시티 투어 & 쇼핑' },
+      { d:'DAY 8', t:'귀국' }
+    ],
+    landmarks: [
+      { n:'Pebble Beach, California', i:'1500932334442-8761ee4810a7' },
+      { n:'Waikiki, Hawaii',          i:'1483683804023-6ccdb62f86ef' },
+      { n:'St Andrews, Scotland',     i:'1587174486073-ae5e5cff23aa' },
+      { n:'Big Sur Coast, USA',       i:'1535131749006-b7f58c99034b' }
+    ],
+    gallery:['1500932334442-8761ee4810a7','1483683804023-6ccdb62f86ef','1535131749006-b7f58c99034b','1592919505780-303950717480']
+  },
+  'japan': {
+    region: 'JAPAN',
+    title: '일본 골프투어',
+    subtitle: '가까운 거리, 깊은 디테일.',
+    hero: U('1492571350019-22de08371fd3', 2000),
+    intro: '미야자키의 햇살, 큐슈의 온천, 홋카이도의 청량함. 짧은 비행 거리로 떠나는 일본의 사계절 골프 여행. 2박 3일부터 가능한 짧은 일정도 운영합니다. 라운드 후 료칸 온천과 정통 일식까지, 오리진만의 큐레이션을 경험하세요.',
+    highlights: [
+      { num:'01', t:'2박3일부터', d:'주말 활용 짧은 일정 가능' },
+      { num:'02', t:'시즌별 베스트', d:'미야자키·큐슈·홋카이도' },
+      { num:'03', t:'온천 숙박', d:'료칸 또는 온천 호텔 포함' },
+      { num:'04', t:'한식 도시락', d:'라운드 중 한식 케이터링 제공' }
+    ],
+    coursesTitle: '추천 코스.',
+    courses: [
+      { n:'미야자키 컨트리클럽', r:'Miyazaki', d:'일본 톱5 명문, 사계절 라운드.', i:'1574767906891-3d716066fa9f' },
+      { n:'후쿠오카 골든파인', r:'Fukuoka', d:'큐슈 대표 챔피언십 코스.', i:'1593111774240-d529f12cf4bb' },
+      { n:'홋카이도 클래식', r:'Hokkaido', d:'여름 시즌 최고의 청량감.', i:'1535131749006-b7f58c99034b' }
+    ],
+    itinerary: [
+      { d:'DAY 1', t:'인천 → 미야자키 / 후쿠오카 / 삿포로' },
+      { d:'DAY 2', t:'라운드 1회 + 온천' },
+      { d:'DAY 3', t:'라운드 1회 + 시내 관광' },
+      { d:'DAY 4', t:'라운드 1회 + 귀국' }
+    ],
+    landmarks: [
+      { n:'Mt. Fuji',          i:'1492571350019-22de08371fd3' },
+      { n:'Tokyo',             i:'1480796927426-f609979314bd' },
+      { n:'Kyoto Temples',     i:'1545569341-9eb8b30979d9' },
+      { n:'Onsen Town',        i:'1574767906891-3d716066fa9f' }
+    ],
+    gallery:['1492571350019-22de08371fd3','1480796927426-f609979314bd','1545569341-9eb8b30979d9','1574767906891-3d716066fa9f']
+  },
+  'thailand': {
+    region: 'THAILAND',
+    title: '태국 골프투어',
+    subtitle: '동남아 골프의 정석.',
+    hero: U('1528181304800-259b08848526', 2000),
+    intro: '방콕·파타야·후아힌. 사계절 라운딩이 가능한 태국의 명문 골프장을 합리적인 가격으로. 오리진만의 한식 케이터링과 5성급 호텔 패키지로 부담없이 즐기는 정통 골프 여행.',
+    highlights: [
+      { num:'01', t:'연중 라운딩', d:'사계절 가능한 따뜻한 날씨' },
+      { num:'02', t:'3개 지역', d:'방콕 · 파타야 · 후아힌' },
+      { num:'03', t:'한식 케이터링', d:'현지에서 만드는 한식 도시락' },
+      { num:'04', t:'5성급 호텔', d:'명문 코스 인근 최상위 호텔' }
+    ],
+    coursesTitle: '추천 코스.',
+    courses: [
+      { n:'Black Mountain', r:'Hua Hin', d:'태국 No.1 챔피언십 코스.', i:'1528181304800-259b08848526' },
+      { n:'Siam Country Club', r:'Pattaya', d:'아시안 투어 개최 명문.', i:'1583417319070-4a69db38a482' },
+      { n:'Alpine Golf Resort', r:'Bangkok', d:'방콕 인근 베스트 코스.', i:'1535131749006-b7f58c99034b' }
+    ],
+    itinerary: [
+      { d:'DAY 1', t:'인천 → 방콕 직항' },
+      { d:'DAY 2-4', t:'라운드 3회 + 마사지' },
+      { d:'DAY 5', t:'시내 관광 & 귀국' }
+    ],
+    landmarks: [
+      { n:'Wat Arun, Bangkok',  i:'1528181304800-259b08848526' },
+      { n:'Phuket Beach',       i:'1518509562904-e7ef99cddc85' },
+      { n:'Hua Hin Coast',      i:'1583417319070-4a69db38a482' },
+      { n:'Thai Sunset',        i:'1547558840-1404428cd3d8' }
+    ],
+    gallery:['1528181304800-259b08848526','1518509562904-e7ef99cddc85','1583417319070-4a69db38a482','1547558840-1404428cd3d8']
+  },
+  'vietnam': {
+    region: 'VIETNAM',
+    title: '베트남 골프투어',
+    subtitle: '떠오르는 골프 천국.',
+    hero: U('1583417319070-4a69db38a482', 2000),
+    intro: '다낭의 해변 코스, 나트랑의 신생 명문, 호치민의 럭셔리. 가까운 비행 거리와 합리적인 가격으로 만나는 베트남 골프의 매력. 최신 시설을 갖춘 챔피언십 코스와 5성급 리조트.',
+    highlights: [
+      { num:'01', t:'3개 지역', d:'다낭 · 나트랑 · 호치민' },
+      { num:'02', t:'신생 명문', d:'최신 시설의 챔피언십 코스' },
+      { num:'03', t:'짧은 비행', d:'인천에서 4-5시간 직항' },
+      { num:'04', t:'합리적 가격', d:'가성비와 품질의 균형' }
+    ],
+    coursesTitle: '추천 코스.',
+    courses: [
+      { n:'BRG Da Nang', r:'Da Nang', d:'베트남 No.1 해변 코스.', i:'1583417319070-4a69db38a482' },
+      { n:'Vinpearl Nha Trang', r:'Nha Trang', d:'신생 럭셔리 리조트 코스.', i:'1535131749006-b7f58c99034b' },
+      { n:'The Bluffs', r:'Ho Tram', d:'아시아 베스트 골프 코스.', i:'1587174486073-ae5e5cff23aa' }
+    ],
+    itinerary: [
+      { d:'DAY 1', t:'인천 → 다낭 / 나트랑 / 호치민' },
+      { d:'DAY 2-4', t:'라운드 3-4회' },
+      { d:'DAY 5', t:'해변 휴양 & 귀국' }
+    ],
+    landmarks: [
+      { n:'Halong Bay',         i:'1559592413-7cec4d0cae2b' },
+      { n:'Da Nang Beach',      i:'1583417319070-4a69db38a482' },
+      { n:'Hoi An Lanterns',    i:'1528181304800-259b08848526' },
+      { n:'Vietnamese Coast',   i:'1518509562904-e7ef99cddc85' }
+    ],
+    gallery:['1559592413-7cec4d0cae2b','1583417319070-4a69db38a482','1528181304800-259b08848526','1518509562904-e7ef99cddc85']
+  },
+  'philippines': {
+    region: 'PHILIPPINES',
+    title: '필리핀 골프투어',
+    subtitle: '세부의 바람, 클락의 그린.',
+    hero: U('1518509562904-e7ef99cddc85', 2000),
+    intro: '세부, 클락, 마닐라. 따뜻한 열대 햇살 아래 라운딩하며, 합리적인 가격으로 골프와 휴양을 동시에. 한국인 코디네이터가 출발부터 귀국까지 모든 일정을 챙깁니다.',
+    highlights: [
+      { num:'01', t:'3개 지역', d:'세부 · 클락 · 마닐라' },
+      { num:'02', t:'4박5일 표준', d:'균형잡힌 골프+휴양 일정' },
+      { num:'03', t:'최고 가성비', d:'동남아 중 가장 합리적' },
+      { num:'04', t:'한국인 코디', d:'전속 한국인 코디네이터' }
+    ],
+    coursesTitle: '추천 코스.',
+    courses: [
+      { n:'Mactan Island GC', r:'Cebu', d:'바다 옆 시원한 라운드.', i:'1518509562904-e7ef99cddc85' },
+      { n:'Mimosa Plus', r:'Clark', d:'클락의 대표 명문 코스.', i:'1593111774240-d529f12cf4bb' },
+      { n:'Manila Southwoods', r:'Manila', d:'필리핀 톱 코스.', i:'1535131749006-b7f58c99034b' }
+    ],
+    itinerary: [
+      { d:'DAY 1', t:'인천 → 세부 / 클락 / 마닐라' },
+      { d:'DAY 2-4', t:'라운드 3회 + 휴양' },
+      { d:'DAY 5', t:'귀국' }
+    ],
+    landmarks: [
+      { n:'Cebu Mactan Beach',  i:'1518509562904-e7ef99cddc85' },
+      { n:'Boracay Island',     i:'1583417319070-4a69db38a482' },
+      { n:'Bohol',              i:'1528181304800-259b08848526' },
+      { n:'Manila Bay Sunset',  i:'1547558840-1404428cd3d8' }
+    ],
+    gallery:['1518509562904-e7ef99cddc85','1583417319070-4a69db38a482','1528181304800-259b08848526','1547558840-1404428cd3d8']
+  },
+  'mongolia': {
+    region: 'MONGOLIA',
+    title: '몽골 골프투어',
+    subtitle: '초원 위의 라운드.',
+    hero: U('1547558840-1404428cd3d8', 2000),
+    intro: '광활한 초원과 푸른 하늘 아래, 잊지 못할 골프 여행. 6-9월 짧은 시즌 동안만 운영되는 오리진만의 프리미엄 몽골 투어. 게르 캠프 옵션과 함께 색다른 경험을.',
+    highlights: [
+      { num:'01', t:'6-9월 시즌', d:'여름 시즌 한정 특별 운영' },
+      { num:'02', t:'명문 코스', d:'울란바토르 지역 톱 코스' },
+      { num:'03', t:'초원 캠프', d:'게르 숙박 옵션 가능' },
+      { num:'04', t:'직항 운항', d:'인천 → 울란바토르 3시간' }
+    ],
+    coursesTitle: '추천 코스.',
+    courses: [
+      { n:'Mt. Bogd Khan GC', r:'Ulaanbaatar', d:'몽골 No.1 챔피언십.', i:'1547558840-1404428cd3d8' },
+      { n:'Sky Resort GC', r:'Ulaanbaatar', d:'산 위의 절경 코스.', i:'1535131749006-b7f58c99034b' },
+      { n:'Terelj National Park', r:'Terelj', d:'국립공원 초원 트레킹.', i:'1573497019418-b400bb3ab074' }
+    ],
+    itinerary: [
+      { d:'DAY 1', t:'인천 → 울란바토르' },
+      { d:'DAY 2-3', t:'라운드 2회' },
+      { d:'DAY 4', t:'초원 캠프 & 게르 숙박' },
+      { d:'DAY 5', t:'귀국' }
+    ],
+    landmarks: [
+      { n:'Mongolian Steppe',    i:'1547558840-1404428cd3d8' },
+      { n:'Ger Camp',            i:'1573497019418-b400bb3ab074' },
+      { n:'Terelj Mountains',    i:'1574767906891-3d716066fa9f' },
+      { n:'Endless Horizon',     i:'1535131749006-b7f58c99034b' }
+    ],
+    gallery:['1547558840-1404428cd3d8','1573497019418-b400bb3ab074','1574767906891-3d716066fa9f','1535131749006-b7f58c99034b']
+  },
+  'value-sea': {
+    region: 'VALUE SOUTHEAST ASIA',
+    title: '동남아 가성비 투어',
+    subtitle: '합리적인 가격, 최고의 가치.',
+    hero: U('1587174486073-ae5e5cff23aa', 2000),
+    intro: '베트남·태국·필리핀 단기 가성비 패키지. 부담없이 떠나는 골프 여행, 그러나 오리진만의 디테일은 그대로. 비수기 한정 특별가로 운영되는 알찬 일정의 골프 투어를 만나보세요.',
+    highlights: [
+      { num:'01', t:'3박4일부터', d:'짧고 알찬 일정 구성' },
+      { num:'02', t:'특가 운영', d:'비수기 한정 특별가' },
+      { num:'03', t:'동남아 전 지역', d:'베트남 · 태국 · 필리핀' },
+      { num:'04', t:'품질 보장', d:'가격은 낮춰도 서비스는 그대로' }
+    ],
+    coursesTitle: '추천 패키지.',
+    courses: [
+      { n:'베트남 골프 패키지', r:'Da Nang · 3박4일', d:'라운드 3회 + 5성 호텔.', i:'1583417319070-4a69db38a482' },
+      { n:'태국 골프 패키지', r:'Bangkok · 4박5일', d:'라운드 3회 + 4성 호텔.', i:'1528181304800-259b08848526' },
+      { n:'필리핀 골프 패키지', r:'Clark · 4박5일', d:'라운드 3회 + 4성 호텔.', i:'1518509562904-e7ef99cddc85' }
+    ],
+    itinerary: [
+      { d:'DAY 1', t:'인천 → 현지 출발' },
+      { d:'DAY 2-3', t:'라운드 2-3회' },
+      { d:'DAY 4', t:'귀국 (또는 5일차 연장)' }
+    ],
+    landmarks: [
+      { n:'Vietnam Da Nang',    i:'1583417319070-4a69db38a482' },
+      { n:'Thailand Bangkok',   i:'1528181304800-259b08848526' },
+      { n:'Philippines Cebu',   i:'1518509562904-e7ef99cddc85' },
+      { n:'Tropical Round',     i:'1547558840-1404428cd3d8' }
+    ],
+    gallery:['1583417319070-4a69db38a482','1528181304800-259b08848526','1518509562904-e7ef99cddc85','1547558840-1404428cd3d8']
+  },
+  'spain-portugal': {
+    region: 'SPAIN · PORTUGAL',
+    title: '스페인 & 포르투갈',
+    subtitle: '이베리아 반도의 빛.',
+    hero: U('1543783207-ec64e4d95325', 2000),
+    intro: '바르셀로나·마드리드·리스본을 잇는 8박 9일 VIP 투어. 골프와 문화, 미식이 어우러진 오리진만의 프리미엄 글로벌 여행. 가우디의 건축, 알람브라의 신비, 파두의 선율을 한 번에.',
+    highlights: [
+      { num:'01', t:'8박 9일', d:'여유로운 정통 유럽 일정' },
+      { num:'02', t:'전문 인솔', d:'유럽 전문 가이드 전 일정 동행' },
+      { num:'03', t:'미식 투어', d:'미슐랭 다이닝 포함' },
+      { num:'04', t:'문화 체험', d:'가우디 · 플라멩코 · 파두' }
+    ],
+    coursesTitle: '주요 방문지.',
+    courses: [
+      { n:'Sagrada Familia', r:'Barcelona', d:'가우디의 미완성 걸작.', i:'1543783207-ec64e4d95325' },
+      { n:'Alhambra', r:'Granada', d:'무어 왕조의 궁전.', i:'1583422409516-2895a77efded' },
+      { n:'Belém Tower', r:'Lisbon', d:'대항해 시대의 상징.', i:'1555881400-74d7acaacd8b' }
+    ],
+    itinerary: [
+      { d:'DAY 1-3', t:'바르셀로나 & 가우디 투어' },
+      { d:'DAY 4-5', t:'마드리드 & 그라나다' },
+      { d:'DAY 6-8', t:'리스본 & 포르투' },
+      { d:'DAY 9', t:'귀국' }
+    ],
+    landmarks: [
+      { n:'Sagrada Familia, Barcelona', i:'1543783207-ec64e4d95325' },
+      { n:'Alhambra, Granada',          i:'1583422409516-2895a77efded' },
+      { n:'Park Güell, Barcelona',      i:'1539037116277-4db20889f2d4' },
+      { n:'Lisbon Streets',             i:'1555881400-74d7acaacd8b' }
+    ],
+    gallery:['1543783207-ec64e4d95325','1583422409516-2895a77efded','1539037116277-4db20889f2d4','1555881400-74d7acaacd8b']
+  },
+  'croatia': {
+    region: 'CROATIA',
+    title: '크로아티아',
+    subtitle: '아드리아의 푸른 보석.',
+    hero: U('1555990538-32200ad3c1de', 2000),
+    intro: '두브로브니크의 성벽, 플리트비체의 호수, 자그레브의 골목. 발칸의 보물 크로아티아를 오리진만의 깊이 있는 7박8일 일정으로 만나보세요. 왕좌의 게임 촬영지와 유네스코 자연유산까지.',
+    highlights: [
+      { num:'01', t:'7박 8일', d:'깊이 있는 크로아티아 일정' },
+      { num:'02', t:'아드리아 해', d:'해안선 따라 가는 여정' },
+      { num:'03', t:'플리트비체', d:'유네스코 자연 유산' },
+      { num:'04', t:'두브로브니크', d:'왕좌의 게임 촬영지' }
+    ],
+    coursesTitle: '주요 방문지.',
+    courses: [
+      { n:'두브로브니크 올드타운', r:'Dubrovnik', d:'아드리아의 진주.', i:'1555990538-32200ad3c1de' },
+      { n:'플리트비체 호수', r:'Plitvice', d:'16개 호수의 비경.', i:'1591608631234-7cbc7b6df18f' },
+      { n:'자그레브 구시가', r:'Zagreb', d:'중세의 정취가 살아있는 거리.', i:'1564507592333-c60657eea523' }
+    ],
+    itinerary: [
+      { d:'DAY 1-2', t:'자그레브 시내 투어' },
+      { d:'DAY 3-4', t:'플리트비체 국립공원' },
+      { d:'DAY 5-7', t:'두브로브니크 & 스플리트' },
+      { d:'DAY 8', t:'귀국' }
+    ],
+    landmarks: [
+      { n:'Dubrovnik Old Town',   i:'1555990538-32200ad3c1de' },
+      { n:'Plitvice Lakes',       i:'1591608631234-7cbc7b6df18f' },
+      { n:'Zagreb Streets',       i:'1564507592333-c60657eea523' },
+      { n:'Adriatic Coast',       i:'1555881400-74d7acaacd8b' }
+    ],
+    gallery:['1555990538-32200ad3c1de','1591608631234-7cbc7b6df18f','1564507592333-c60657eea523','1555881400-74d7acaacd8b']
+  }
+};
+
+const otherList = [
+  { id:'usa-hawaii-europe', name:'미주/하와이/유럽', img:'1500932334442-8761ee4810a7' },
+  { id:'japan',             name:'일본',             img:'1492571350019-22de08371fd3' },
+  { id:'thailand',          name:'태국',             img:'1528181304800-259b08848526' },
+  { id:'vietnam',           name:'베트남',           img:'1583417319070-4a69db38a482' },
+  { id:'philippines',       name:'필리핀',           img:'1518509562904-e7ef99cddc85' },
+  { id:'mongolia',          name:'몽골',             img:'1547558840-1404428cd3d8' },
+  { id:'value-sea',         name:'동남아 가성비',    img:'1587174486073-ae5e5cff23aa' },
+  { id:'spain-portugal',    name:'스페인 & 포르투갈',img:'1543783207-ec64e4d95325' },
+  { id:'croatia',           name:'크로아티아',        img:'1555990538-32200ad3c1de' },
+];
+
+function render() {
+  const id = (location.hash.replace('#','') || 'japan');
+  const t = tours[id] || tours['japan'];
+  document.title = `${t.title} | 오리진투어`;
+
+  // Hero
+  const hero = document.getElementById('tour-hero');
+  hero.style.backgroundImage = `url('${t.hero}')`;
+  document.getElementById('tour-region').textContent = t.region;
+  document.getElementById('tour-title').textContent = t.title;
+  document.getElementById('tour-subtitle').textContent = t.subtitle;
+
+  // Intro
+  document.getElementById('tour-intro').textContent = t.intro;
+
+  // Highlights
+  document.getElementById('tour-highlights').innerHTML = t.highlights.map(h => `
+    <div>
+      <div class="font-display text-3xl text-sand-500 mb-2">${h.num}</div>
+      <div class="text-forest-900 font-semibold mb-1.5">${h.t}</div>
+      <div class="text-stone-600 text-sm leading-relaxed">${h.d}</div>
+    </div>
+  `).join('');
+
+  // Courses
+  document.getElementById('courses-title').textContent = t.coursesTitle;
+  document.getElementById('tour-courses').innerHTML = t.courses.map(c => `
+    <div class="card group">
+      <div class="relative aspect-card overflow-hidden rounded-sm mb-4">
+        <div class="card-img absolute inset-0 bg-cover bg-center" style="background-image:url('${U(c.i, 1000)}');"></div>
+      </div>
+      <div class="text-sand-700 text-[10px] tracking-[0.3em] mb-1.5">${c.r}</div>
+      <h3 class="font-display text-2xl text-forest-900 mb-1.5">${c.n}</h3>
+      <p class="text-stone-600 text-sm">${c.d}</p>
+    </div>
+  `).join('');
+
+  // Itinerary
+  document.getElementById('tour-itinerary').innerHTML = t.itinerary.map(i => `
+    <li class="relative">
+      <div class="absolute -left-[39px] top-2 timeline-dot"></div>
+      <div class="text-sand-300 text-[11px] tracking-[0.3em] mb-1">${i.d}</div>
+      <div class="text-white text-lg">${i.t}</div>
+    </li>
+  `).join('');
+
+  // Landmarks (right panel of itinerary section)
+  document.getElementById('tour-landmarks').innerHTML = (t.landmarks || []).map(l => `
+    <div class="relative aspect-square overflow-hidden rounded-sm card">
+      <div class="card-img absolute inset-0 bg-cover bg-center" style="background-image:url('${U(l.i, 800)}');"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10"></div>
+      <div class="absolute bottom-3 left-3 right-3 text-white text-[11px] font-medium tracking-wide">${l.n}</div>
+    </div>
+  `).join('');
+
+  // Gallery
+  document.getElementById('tour-gallery').innerHTML = t.gallery.map(g => `
+    <div class="relative aspect-square overflow-hidden rounded-sm card">
+      <div class="card-img absolute inset-0 bg-cover bg-center" style="background-image:url('${U(g, 900)}');"></div>
+    </div>
+  `).join('');
+
+  // Other tours (exclude current)
+  document.getElementById('other-tours').innerHTML = otherList.filter(o => o.id !== id).map(o => `
+    <a href="#${o.id}" class="card group block">
+      <div class="relative aspect-square overflow-hidden rounded-sm">
+        <div class="card-img absolute inset-0 bg-cover bg-center" style="background-image:url('${U(o.img, 600)}');"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-forest-900/85 via-forest-900/20"></div>
+        <div class="absolute bottom-3 left-3 right-3 text-white text-xs font-semibold">${o.name}</div>
+      </div>
+    </a>
+  `).join('');
+
+  // Re-trigger reveal
+  document.querySelectorAll('.reveal').forEach(el => el.classList.remove('in'));
+  setTimeout(() => document.querySelectorAll('.reveal').forEach(el => el.classList.add('in')), 50);
+
+  window.scrollTo({ top:0, behavior:'instant' });
+}
+
+window.addEventListener('hashchange', render);
+window.addEventListener('DOMContentLoaded', render);
+
+// Mobile menu
+const menu = document.getElementById('mobile-menu');
+document.getElementById('menu-btn').addEventListener('click', () => menu.classList.add('open'));
+document.getElementById('menu-close').addEventListener('click', () => menu.classList.remove('open'));
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+</script>
+
+</body>
+</html>

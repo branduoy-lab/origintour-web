@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오리진투어 | Origin Tour</title>
+<meta name="description" content="중간 유통사 없이 직접 만드는 프리미엄 골프 투어. 미주·일본·동남아·유럽까지, VIP 멤버십 골프 여행의 모든 것.">
+<meta property="og:title" content="오리진투어">
+<meta property="og:description" content="중간 유통사 없이 직접 만드는 프리미엄 골프 투어">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        forest: { 50:'#f3f5fc', 100:'#dfe4f2', 500:'#2A3C7A', 700:'#15265A', 900:'#0B1B3D' },
+        sand:   { 100:'#f1f3f8', 300:'#c4cbd8', 500:'#8b94a8', 700:'#5b6478' },
+        brand:  { 300:'#5B7AD1', 500:'#1E47B5', 700:'#163688' },
+      },
+      fontFamily: {
+        sans: ['Pretendard','Inter','Apple SD Gothic Neo','system-ui','sans-serif'],
+        serif: ['Cormorant Garamond','serif'],
+      }
+    }
+  }
+}
+</script>
+<style>
+html { scroll-behavior: smooth; }
+body { font-family: 'Pretendard','Inter','Apple SD Gothic Neo',sans-serif; color:#0a2a21; }
+.font-display { font-family:'Cormorant Garamond', serif; font-weight:500; letter-spacing:-0.01em; }
+
+/* Hero with layered gradient + image */
+.hero-bg {
+  background-color:#15265A;
+  background-image:
+    linear-gradient(125deg, rgba(11,27,61,0.92) 0%, rgba(11,27,61,0.35) 55%, rgba(11,27,61,0.7) 100%),
+    url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=2000&q=85&auto=format&fit=crop');
+  background-size: cover; background-position: center;
+}
+
+/* Card image hover zoom */
+.card { overflow:hidden; }
+.card .card-img { transition: transform 1s cubic-bezier(.2,.7,.2,1); }
+.card:hover .card-img { transform: scale(1.08); }
+
+/* Reveal animation */
+.reveal { opacity:0; transform: translateY(28px); transition: opacity .9s ease, transform .9s ease; }
+.reveal.in { opacity:1; transform: translateY(0); }
+
+/* Underline link */
+.nav-link { position:relative; padding:.25rem 0; }
+.nav-link::after {
+  content:''; position:absolute; left:0; bottom:-6px; height:1.5px; width:0;
+  background:#c9a961; transition: width .3s ease;
+}
+.nav-link:hover::after, .nav-link.active::after { width:100%; }
+
+/* Header transparent → solid on scroll */
+header.solid { background: rgba(11,27,61,.95); backdrop-filter: blur(12px); box-shadow: 0 1px 0 rgba(255,255,255,.06); }
+
+/* Marquee */
+.marquee { display:flex; gap:4rem; animation: scroll 30s linear infinite; }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* Number ticker dot */
+.dot::before { content:'·'; margin:0 .5rem; opacity:.4; }
+
+/* Pretty card aspect */
+.aspect-tour { aspect-ratio: 4/5; }
+.aspect-wide { aspect-ratio: 16/10; }
+
+/* Subtle grain overlay */
+.grain::after {
+  content:''; position:absolute; inset:0; pointer-events:none; opacity:.06;
+  background-image: radial-gradient(rgba(255,255,255,.8) 1px, transparent 1px);
+  background-size: 3px 3px;
+  mix-blend-mode: overlay;
+}
+
+/* Mobile menu */
+#mobile-menu { transform: translateX(100%); transition: transform .35s ease; }
+#mobile-menu.open { transform: translateX(0); }
+</style>
+</head>
+<body class="bg-stone-50">
+
+<!-- ========== HEADER ========== -->
+<header id="header" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
+    <a href="#" class="flex items-center group">
+      <img src="assets/origintour-logo.png" alt="ORIGINTOUR" class="h-5 w-auto" style="filter: brightness(0) invert(1);">
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-9 text-[14px] text-white/90">
+      <a href="#about" class="nav-link">회사소개</a>
+      <div class="relative group">
+        <a href="#golf" class="nav-link flex items-center gap-1.5">
+          골프투어
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4.5l3 3 3-3"/></svg>
+        </a>
+        <div class="absolute top-full left-1/2 -translate-x-1/2 pt-5 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition duration-200">
+          <div class="bg-white shadow-2xl rounded-sm py-3 w-56 border border-stone-100">
+            <a href="tour.html#usa-hawaii-europe" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">미주/하와이/유럽</a>
+            <a href="tour.html#japan" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">일본</a>
+            <a href="tour.html#thailand" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">태국</a>
+            <a href="tour.html#vietnam" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">베트남</a>
+            <a href="tour.html#philippines" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">필리핀</a>
+            <a href="tour.html#mongolia" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">몽골</a>
+            <a href="tour.html#value-sea" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">동남아 가성비</a>
+          </div>
+        </div>
+      </div>
+      <div class="relative group">
+        <a href="#vip" class="nav-link flex items-center gap-1.5">
+          VIP투어
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4.5l3 3 3-3"/></svg>
+        </a>
+        <div class="absolute top-full left-1/2 -translate-x-1/2 pt-5 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition duration-200">
+          <div class="bg-white shadow-2xl rounded-sm py-3 w-56 border border-stone-100">
+            <a href="tour.html#spain-portugal" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">스페인 & 포르투갈</a>
+            <a href="tour.html#croatia" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">크로아티아</a>
+          </div>
+        </div>
+      </div>
+      <a href="#reviews" class="nav-link">여행후기</a>
+      <a href="#contact" class="nav-link">고객센터</a>
+    </nav>
+
+    <div class="hidden lg:flex items-center gap-4">
+      <a href="tel:070-4349-1724" class="text-white/80 text-sm hover:text-sand-300">070-4349-1724</a>
+      <a href="#contact" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-500 text-white font-semibold text-sm hover:bg-brand-700 transition">
+        여행 신청
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <button id="menu-btn" class="lg:hidden text-white" aria-label="menu">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ========== MOBILE MENU ========== -->
+<aside id="mobile-menu" class="fixed inset-y-0 right-0 w-[85%] max-w-sm bg-forest-900 z-[60] p-8 flex flex-col">
+  <div class="flex justify-end">
+    <button id="menu-close" class="text-white" aria-label="close">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+    </button>
+  </div>
+  <nav class="mt-8 space-y-5 text-white text-xl font-display overflow-y-auto flex-1">
+    <a href="#about" class="block">회사소개</a>
+    <div>
+      <div class="text-white">골프투어</div>
+      <ul class="mt-2 pl-3 space-y-1.5 text-sm text-white/70 font-sans">
+        <li><a href="tour.html#usa-hawaii-europe" class="block py-1">· 미주/하와이/유럽</a></li>
+        <li><a href="tour.html#japan" class="block py-1">· 일본</a></li>
+        <li><a href="tour.html#thailand" class="block py-1">· 태국</a></li>
+        <li><a href="tour.html#vietnam" class="block py-1">· 베트남</a></li>
+        <li><a href="tour.html#philippines" class="block py-1">· 필리핀</a></li>
+        <li><a href="tour.html#mongolia" class="block py-1">· 몽골</a></li>
+        <li><a href="tour.html#value-sea" class="block py-1">· 동남아 가성비</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="text-white">VIP투어</div>
+      <ul class="mt-2 pl-3 space-y-1.5 text-sm text-white/70 font-sans">
+        <li><a href="tour.html#spain-portugal" class="block py-1">· 스페인 & 포르투갈</a></li>
+        <li><a href="tour.html#croatia" class="block py-1">· 크로아티아</a></li>
+      </ul>
+    </div>
+    <a href="#reviews" class="block">여행후기</a>
+    <a href="#contact" class="block">고객센터</a>
+  </nav>
+  <div class="mt-auto space-y-3 text-white/70 text-sm">
+    <div>070-4349-1724</div>
+    <div>info@origintour.kr</div>
+  </div>
+</aside>
+
+<!-- ========== HERO ========== -->
+<section class="relative h-screen min-h-[720px] hero-bg grain flex items-end">
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10 pb-24 lg:pb-32 w-full text-white">
+    <p class="reveal text-sand-300 text-[11px] tracking-[0.4em] mb-8">VIP MEMBERSHIP GOLF TOUR · EST. 2026</p>
+    <h1 class="reveal font-display text-[clamp(2rem,4.2vw,3.5rem)] leading-[1.15] mb-6 max-w-3xl">
+      중간 유통사 없이<br/>
+      <em class="not-italic text-brand-300">직접 만드는</em> 프리미엄 골프투어.
+    </h1>
+    <p class="reveal text-white/75 text-lg max-w-xl mb-10">
+      미주·하와이·일본·동남아·유럽까지. 전문 인솔자와 함께하는<br class="hidden md:block"/>진짜 VIP 멤버십 골프 여행을 만나보세요.
+    </p>
+    <div class="reveal flex flex-wrap gap-3">
+      <a href="#golf" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-brand-500 text-white font-semibold hover:bg-brand-700 transition">
+        투어 둘러보기
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#contact" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/40 text-white hover:bg-white hover:text-forest-900 transition">
+        1:1 상담 신청
+      </a>
+    </div>
+  </div>
+
+  <!-- Floating index -->
+  <div class="hidden lg:flex absolute right-10 bottom-32 flex-col items-end gap-3 text-white/60 text-xs tracking-widest">
+    <div class="w-px h-16 bg-white/30"></div>
+    <span>01 · GOLF</span>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 text-[10px] tracking-[0.4em]">SCROLL DOWN</div>
+</section>
+
+<!-- ========== MARQUEE STRIP ========== -->
+<section class="bg-forest-900 text-sand-300 py-6 overflow-hidden border-t border-white/5">
+  <div class="marquee whitespace-nowrap font-display text-2xl">
+    <div class="flex gap-16 px-8">
+      <span>HAWAII</span><span class="opacity-30">✦</span>
+      <span>JAPAN</span><span class="opacity-30">✦</span>
+      <span>THAILAND</span><span class="opacity-30">✦</span>
+      <span>VIETNAM</span><span class="opacity-30">✦</span>
+      <span>PHILIPPINES</span><span class="opacity-30">✦</span>
+      <span>MONGOLIA</span><span class="opacity-30">✦</span>
+      <span>SPAIN</span><span class="opacity-30">✦</span>
+      <span>CROATIA</span><span class="opacity-30">✦</span>
+    </div>
+    <div class="flex gap-16 px-8" aria-hidden="true">
+      <span>HAWAII</span><span class="opacity-30">✦</span>
+      <span>JAPAN</span><span class="opacity-30">✦</span>
+      <span>THAILAND</span><span class="opacity-30">✦</span>
+      <span>VIETNAM</span><span class="opacity-30">✦</span>
+      <span>PHILIPPINES</span><span class="opacity-30">✦</span>
+      <span>MONGOLIA</span><span class="opacity-30">✦</span>
+      <span>SPAIN</span><span class="opacity-30">✦</span>
+      <span>CROATIA</span><span class="opacity-30">✦</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ABOUT ========== -->
+<section id="about" class="py-24 lg:py-32 bg-stone-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <div class="relative aspect-[4/5] overflow-hidden rounded-sm">
+        <img src="https://images.unsplash.com/photo-1592919505780-303950717480?w=1200&q=85&auto=format&fit=crop"
+             alt="Premium golf course"
+             class="absolute inset-0 w-full h-full object-cover">
+      </div>
+    </div>
+    <div class="reveal">
+      <p class="text-sand-700 text-[11px] tracking-[0.4em] mb-5">ABOUT US</p>
+      <h2 class="font-display text-5xl lg:text-6xl text-forest-900 leading-[1.05] mb-8">
+        라운드의 기준을<br/>처음부터<br/><em class="not-italic text-brand-500">새로 씁니다.</em>
+      </h2>
+      <p class="text-stone-700 text-lg leading-relaxed mb-6">
+        오리진투어는 중간 유통사 없이 현지와 직접 계약하여 골프투어를 운영합니다.
+        라운딩 일정 보장, 현지 전속 코디네이터, 한식 케이터링까지 — 모든 디테일을 직접 챙깁니다.
+      </p>
+      <p class="text-stone-600 leading-relaxed mb-10">
+        2026년, VIP 멤버십 골프투어를 다시 정의합니다.<br/>
+        다시 찾고 싶은 골프 여행을 만듭니다.
+      </p>
+      <div class="grid grid-cols-2 gap-x-12 gap-y-8 max-w-md">
+        <div>
+          <div class="font-display text-5xl text-forest-900">10<span class="text-xl">+</span></div>
+          <div class="text-sm text-stone-600 mt-1">국가 운영</div>
+        </div>
+        <div>
+          <div class="font-display text-5xl text-forest-900">100<span class="text-xl">%</span></div>
+          <div class="text-sm text-stone-600 mt-1">직판 시스템</div>
+        </div>
+        <div>
+          <div class="font-display text-5xl text-forest-900">VIP</div>
+          <div class="text-sm text-stone-600 mt-1">멤버십 전용</div>
+        </div>
+        <div>
+          <div class="font-display text-5xl text-forest-900">2026</div>
+          <div class="text-sm text-stone-600 mt-1">EST. 새로운 시작</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GOLF TOURS ========== -->
+<section id="golf" class="py-24 lg:py-32 bg-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between mb-16">
+      <div>
+        <p class="text-sand-700 text-[11px] tracking-[0.4em] mb-5">GOLF TOUR</p>
+        <h2 class="font-display text-5xl lg:text-6xl text-forest-900 leading-[1.05]">세계의 페어웨이로.</h2>
+      </div>
+      <p class="text-stone-600 max-w-md mt-6 md:mt-0">
+        하와이의 햇살에서 베트남의 정글까지.<br/>당신을 위한 단 하나의 라운드를 설계합니다.
+      </p>
+    </div>
+
+    <!-- Featured (large) -->
+    <a href="tour.html#usa-hawaii-europe" class="card reveal block relative aspect-wide rounded-sm overflow-hidden mb-6 group">
+      <div class="card-img absolute inset-0 bg-cover bg-center"
+           style="background-image:linear-gradient(to top, rgba(11,27,61,.85) 0%, rgba(11,27,61,.1) 50%), url('https://images.unsplash.com/photo-1500932334442-8761ee4810a7?w=2000&q=85&auto=format&fit=crop');">
+      </div>
+      <div class="relative h-full flex flex-col justify-end p-8 lg:p-12 text-white">
+        <p class="text-sand-300 text-[11px] tracking-[0.4em] mb-3">FEATURED · USA</p>
+        <h3 class="font-display text-4xl lg:text-6xl leading-tight mb-3">미주 · 하와이 · 유럽</h3>
+        <p class="text-white/80 max-w-xl mb-5">바다와 하늘이 맞닿은 곳에서, 평생 잊지 못할 라운드.</p>
+        <span class="inline-flex items-center gap-2 text-sand-300 text-sm">
+          자세히 보기
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- 6 grid -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- JAPAN -->
+      <a href="tour.html#japan" class="card reveal block group">
+        <div class="relative aspect-tour overflow-hidden rounded-sm">
+          <div class="card-img absolute inset-0 bg-cover bg-center"
+               style="background-image:url('https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=1200&q=85&auto=format&fit=crop');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-forest-900/80 via-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6 text-white">
+            <p class="text-sand-300 text-[10px] tracking-[0.4em] mb-2">JAPAN</p>
+            <h3 class="font-display text-3xl">일본 골프투어</h3>
+          </div>
+        </div>
+      </a>
+      <!-- THAILAND -->
+      <a href="tour.html#thailand" class="card reveal block group">
+        <div class="relative aspect-tour overflow-hidden rounded-sm">
+          <div class="card-img absolute inset-0 bg-cover bg-center"
+               style="background-image:url('https://images.unsplash.com/photo-1528181304800-259b08848526?w=1200&q=85&auto=format&fit=crop');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-forest-900/80 via-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6 text-white">
+            <p class="text-sand-300 text-[10px] tracking-[0.4em] mb-2">THAILAND</p>
+            <h3 class="font-display text-3xl">태국 골프투어</h3>
+          </div>
+        </div>
+      </a>
+      <!-- VIETNAM -->
+      <a href="tour.html#vietnam" class="card reveal block group">
+        <div class="relative aspect-tour overflow-hidden rounded-sm">
+          <div class="card-img absolute inset-0 bg-cover bg-center"
+               style="background-image:url('https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=1200&q=85&auto=format&fit=crop');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-forest-900/80 via-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6 text-white">
+            <p class="text-sand-300 text-[10px] tracking-[0.4em] mb-2">VIETNAM</p>
+            <h3 class="font-display text-3xl">베트남 골프투어</h3>
+          </div>
+        </div>
+      </a>
+      <!-- PHILIPPINES -->
+      <a href="tour.html#philippines" class="card reveal block group">
+        <div class="relative aspect-tour overflow-hidden rounded-sm">
+          <div class="card-img absolute inset-0 bg-cover bg-center"
+               style="background-image:url('https://images.unsplash.com/photo-1518509562904-e7ef99cddc85?w=1200&q=85&auto=format&fit=crop');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-forest-900/80 via-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6 text-white">
+            <p class="text-sand-300 text-[10px] tracking-[0.4em] mb-2">PHILIPPINES</p>
+            <h3 class="font-display text-3xl">필리핀 골프투어</h3>
+          </div>
+        </div>
+      </a>
+      <!-- MONGOLIA -->
+      <a href="tour.html#mongolia" class="card reveal block group">
+        <div class="relative aspect-tour overflow-hidden rounded-sm">
+          <div class="card-img absolute inset-0 bg-cover bg-center"
+               style="background-image:url('https://images.unsplash.com/photo-1547558840-1404428cd3d8?w=1200&q=85&auto=format&fit=crop');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-forest-900/80 via-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6 text-white">
+            <p class="text-sand-300 text-[10px] tracking-[0.4em] mb-2">MONGOLIA</p>
+            <h3 class="font-display text-3xl">몽골 골프투어</h3>
+          </div>
+        </div>
+      </a>
+      <!-- VALUE -->
+      <a href="tour.html#value-sea" class="card reveal block group">
+        <div class="relative aspect-tour overflow-hidden rounded-sm">
+          <div class="card-img absolute inset-0 bg-cover bg-center"
+               style="background-image:url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=1200&q=85&auto=format&fit=crop');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-forest-900/80 via-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6 text-white">
+            <p class="text-sand-300 text-[10px] tracking-[0.4em] mb-2">VALUE</p>
+            <h3 class="font-display text-3xl">동남아 가성비</h3>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== VIP TOUR ========== -->
+<section id="vip" class="py-24 lg:py-32 bg-forest-900 text-white relative overflow-hidden">
+  <div class="absolute inset-0 opacity-20 bg-cover bg-center"
+       style="background-image:url('https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=2000&q=85&auto=format&fit=crop');"></div>
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="reveal max-w-3xl mb-20">
+      <p class="text-sand-300 text-[11px] tracking-[0.4em] mb-5">VIP TOUR</p>
+      <h2 class="font-display text-5xl lg:text-7xl leading-[1.05] mb-6">
+        라운드 그 너머의<br/><em class="not-italic text-sand-300">유럽.</em>
+      </h2>
+      <p class="text-white/70 text-lg max-w-xl">전문 인솔자와 함께하는 글로벌 투어. 오리진만의 깊이 있는 일정으로.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <a href="tour.html#spain-portugal" class="card reveal group">
+        <div class="relative aspect-wide overflow-hidden rounded-sm">
+          <div class="card-img absolute inset-0 bg-cover bg-center"
+               style="background-image:url('https://images.unsplash.com/photo-1583422409516-2895a77efded?w=1400&q=85&auto=format&fit=crop');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+          <div class="absolute bottom-8 left-8 right-8">
+            <p class="text-sand-300 text-[10px] tracking-[0.4em] mb-2">SPAIN · PORTUGAL</p>
+            <h3 class="font-display text-4xl">스페인 & 포르투갈</h3>
+          </div>
+        </div>
+      </a>
+      <a href="tour.html#croatia" class="card reveal group">
+        <div class="relative aspect-wide overflow-hidden rounded-sm">
+          <div class="card-img absolute inset-0 bg-cover bg-center"
+               style="background-image:url('https://images.unsplash.com/photo-1555990538-32200ad3c1de?w=1400&q=85&auto=format&fit=crop');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+          <div class="absolute bottom-8 left-8 right-8">
+            <p class="text-sand-300 text-[10px] tracking-[0.4em] mb-2">CROATIA</p>
+            <h3 class="font-display text-4xl">크로아티아</h3>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WHY US ========== -->
+<section class="py-24 lg:py-32 bg-stone-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="reveal text-center mb-20">
+      <p class="text-sand-700 text-[11px] tracking-[0.4em] mb-5">WHY DONGA</p>
+      <h2 class="font-display text-5xl lg:text-6xl text-forest-900">우리가 다른 이유.</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-12">
+      <div class="reveal">
+        <div class="w-14 h-14 rounded-full bg-forest-900 text-sand-300 grid place-items-center font-display text-2xl mb-6">01</div>
+        <h3 class="text-xl font-semibold text-forest-900 mb-3">중간 유통사 없는 직판</h3>
+        <p class="text-stone-600 leading-relaxed">현지 골프장·호텔과 직접 계약하여 합리적 가격과 보장된 일정을 동시에 제공합니다.</p>
+      </div>
+      <div class="reveal">
+        <div class="w-14 h-14 rounded-full bg-forest-900 text-sand-300 grid place-items-center font-display text-2xl mb-6">02</div>
+        <h3 class="text-xl font-semibold text-forest-900 mb-3">전속 코디네이터</h3>
+        <p class="text-stone-600 leading-relaxed">각 지역 전속 코디네이터가 출발부터 귀국까지, 모든 디테일을 책임집니다.</p>
+      </div>
+      <div class="reveal">
+        <div class="w-14 h-14 rounded-full bg-forest-900 text-sand-300 grid place-items-center font-display text-2xl mb-6">03</div>
+        <h3 class="text-xl font-semibold text-forest-900 mb-3">VIP 멤버십 케어</h3>
+        <p class="text-stone-600 leading-relaxed">한식 케이터링, 라운딩 보장, 단독 그룹 운영까지. 진짜 프리미엄을 경험하세요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== REVIEWS ========== -->
+<section id="reviews" class="py-24 lg:py-32 bg-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between mb-16">
+      <div>
+        <p class="text-sand-700 text-[11px] tracking-[0.4em] mb-5">REVIEWS</p>
+        <h2 class="font-display text-5xl lg:text-6xl text-forest-900">고객의 이야기.</h2>
+      </div>
+      <a href="#" class="text-forest-900 text-sm border-b border-forest-900 pb-1 mt-6 md:mt-0">후기 전체 보기 →</a>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <article class="reveal">
+        <div class="text-sand-500 text-2xl mb-4">★★★★★</div>
+        <p class="text-stone-700 leading-relaxed mb-6">"라운딩 일정이 단 한 번도 어긋나지 않았어요. 한식이 진짜 맛있어서 동남아 골프에 대한 인식이 완전히 바뀌었습니다."</p>
+        <div class="text-sm text-stone-500">김 · 베트남 다낭 5박6일</div>
+      </article>
+      <article class="reveal">
+        <div class="text-sand-500 text-2xl mb-4">★★★★★</div>
+        <p class="text-stone-700 leading-relaxed mb-6">"VIP 그룹 단독 운영이 정말 큰 차이. 동행분들과 깊은 시간을 보낼 수 있었습니다. 다음엔 하와이로 가려고요."</p>
+        <div class="text-sm text-stone-500">박 · 태국 방콕 7박8일</div>
+      </article>
+      <article class="reveal">
+        <div class="text-sand-500 text-2xl mb-4">★★★★★</div>
+        <p class="text-stone-700 leading-relaxed mb-6">"코디네이터 분의 디테일 챙김이 정말 감동이었어요. 오리진은 다른 차원입니다. 다른 곳은 못 가요."</p>
+        <div class="text-sm text-stone-500">이 · 일본 미야자키 4박5일</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT / CTA ========== -->
+<section id="contact" class="py-24 lg:py-32 bg-forest-900 text-white relative overflow-hidden">
+  <div class="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-sand-500/10 blur-3xl"></div>
+  <div class="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-sand-500/5 blur-3xl"></div>
+  <div class="relative max-w-5xl mx-auto px-6 lg:px-10 text-center">
+    <p class="reveal text-sand-300 text-[11px] tracking-[0.4em] mb-6">RESERVATION</p>
+    <h2 class="reveal font-display text-5xl lg:text-7xl leading-[1.05] mb-8">
+      다음 라운드는<br/><em class="not-italic text-sand-300">어디로 떠나시겠습니까?</em>
+    </h2>
+    <p class="reveal text-white/70 text-lg mb-12 max-w-xl mx-auto">
+      전문 상담사가 맞춤 여행을 설계해드립니다. 부담없이 연락주세요.
+    </p>
+    <div class="reveal flex flex-wrap justify-center gap-3 mb-16">
+      <a href="tel:070-4349-1724" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-brand-500 text-white font-semibold hover:bg-brand-700 transition">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.86 19.86 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.86 19.86 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.37 1.9.72 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0122 16.92z"/></svg>
+        070-4349-1724
+      </a>
+      <a href="mailto:info@origintour.kr" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/40 hover:bg-white hover:text-forest-900 transition">
+        info@origintour.kr
+      </a>
+    </div>
+
+    <div class="reveal grid sm:grid-cols-3 gap-8 text-left max-w-3xl mx-auto pt-12 border-t border-white/10">
+      <div>
+        <div class="text-sand-300 text-[10px] tracking-[0.4em] mb-2">CALL</div>
+        <div class="text-sm text-white/80">일반 02-6925-4399<br/>여행 070-4349-1724</div>
+      </div>
+      <div>
+        <div class="text-sand-300 text-[10px] tracking-[0.4em] mb-2">EMAIL</div>
+        <div class="text-sm text-white/80">info@origintour.kr</div>
+      </div>
+      <div>
+        <div class="text-sand-300 text-[10px] tracking-[0.4em] mb-2">ADDRESS</div>
+        <div class="text-sm text-white/80">서울시 성동구 성수일로 99<br/>서울숲AK밸리 지식산업센터 802-38호</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-forest-900 text-white/60 border-t border-white/10 py-12">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+    <div class="flex items-center gap-4">
+      <img src="assets/origintour-logo.png" alt="ORIGINTOUR" class="h-5 w-auto opacity-90" style="filter: brightness(0) invert(1);">
+      <div class="text-xs">
+        <div class="text-white">(주)오리진투어</div>
+        <div>대표 송종선 · 사업자 482-88-03508</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-5 text-white/70">
+      <a href="#" aria-label="Naver Blog" class="hover:text-sand-300">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16.273 12.845L7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727z"/></svg>
+      </a>
+      <a href="#" aria-label="Kakao" class="hover:text-sand-300">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.48 3 2 6.58 2 11c0 2.83 1.84 5.32 4.6 6.74-.2.74-.72 2.68-.82 3.1-.13.52.19.51.4.37.16-.11 2.6-1.77 3.65-2.48.7.1 1.42.16 2.17.16 5.52 0 10-3.58 10-8 0-4.42-4.48-8-10-8z"/></svg>
+      </a>
+      <a href="#" aria-label="Instagram" class="hover:text-sand-300">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      </a>
+      <a href="#" aria-label="YouTube" class="hover:text-sand-300">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.6c-1 .3-1.7 1.1-2 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1 1 1.8 2 2.1 1.9.6 9.5.6 9.5.6s7.6 0 9.5-.6c1-.3 1.7-1.1 2-2.1.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+      </a>
+    </div>
+    <div class="text-xs">© 2026 Origin Tour. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- ========== JS ========== -->
+<script>
+// Header scroll
+const header = document.getElementById('header');
+const onScroll = () => header.classList.toggle('solid', window.scrollY > 60);
+window.addEventListener('scroll', onScroll, { passive:true }); onScroll();
+
+// Reveal on scroll
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Mobile menu
+const menu = document.getElementById('mobile-menu');
+document.getElementById('menu-btn').addEventListener('click', () => menu.classList.add('open'));
+document.getElementById('menu-close').addEventListener('click', () => menu.classList.remove('open'));
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+</script>
+</body>
+</html>
