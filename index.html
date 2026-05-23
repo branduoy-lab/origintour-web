@@ -94,6 +94,26 @@ details summary::-webkit-details-marker { display: none; }
 .faq-chevron { transition: transform .3s ease; }
 details[open] .faq-chevron { transform: rotate(180deg); }
 .faq-item[open] { border-color: #0B1B3D; box-shadow: 0 4px 24px -16px rgba(11,27,61,.3); }
+
+/* Inquiry form — chip group */
+.chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; cursor: pointer; user-select: none; }
+.chip input { position: absolute; opacity: 0; pointer-events: none; }
+.chip span {
+  display: inline-block; padding: 8px 16px; border-radius: 9999px;
+  border: 1px solid #d6d3d1; font-size: 13px; color: #44403c; background: white;
+  transition: all .18s ease;
+}
+.chip:hover span { border-color: #1E47B5; color: #15265A; }
+.chip input:checked + span {
+  background: #1E47B5; border-color: #1E47B5; color: #fff;
+}
+.inq-input {
+  width: 100%; padding: 12px 16px; border: 1px solid #d6d3d1; border-radius: 2px;
+  font-size: 14px; background: white; transition: border-color .18s ease;
+}
+.inq-input:focus { outline: none; border-color: #1E47B5; }
+.inq-input::placeholder { color: #a8a29e; }
 </style>
 </head>
 <body class="bg-stone-50">
@@ -137,6 +157,7 @@ details[open] .faq-chevron { transform: rotate(180deg); }
         </div>
       </div>
       <a href="#reviews" class="nav-link">여행후기</a>
+      <a href="#inquiry" class="nav-link">여행문의</a>
       <a href="#faq" class="nav-link">고객센터</a>
     </nav>
 
@@ -183,6 +204,7 @@ details[open] .faq-chevron { transform: rotate(180deg); }
       </ul>
     </div>
     <a href="#reviews" class="block">여행후기</a>
+    <a href="#inquiry" class="block">여행문의</a>
     <a href="#faq" class="block">고객센터</a>
   </nav>
   <div class="mt-auto space-y-3 text-white/70 text-sm">
@@ -498,6 +520,157 @@ details[open] .faq-chevron { transform: rotate(180deg); }
   </div>
 </section>
 
+<!-- ========== TRAVEL INQUIRY FORM ========== -->
+<section id="inquiry" class="py-24 lg:py-32 bg-white">
+  <div class="max-w-3xl mx-auto px-6 lg:px-10">
+    <div class="reveal text-center mb-14">
+      <p class="text-sand-700 text-[11px] tracking-[0.4em] mb-5">TRAVEL INQUIRY</p>
+      <h2 class="font-display text-4xl lg:text-5xl text-forest-900">여행 문의.</h2>
+      <p class="text-stone-600 mt-4 text-sm leading-relaxed">
+        여행 종류·일정·인원을 알려주시면 전문 상담사가<br/>영업일 기준 24시간 이내에 회신드립니다.
+      </p>
+    </div>
+
+    <form id="inquiry-form" class="reveal space-y-6" onsubmit="return submitInquiry(event)">
+
+      <!-- 01 고객 정보 -->
+      <div class="bg-stone-50 rounded-sm border border-stone-200 p-7 lg:p-9">
+        <div class="flex items-baseline gap-3 mb-7">
+          <span class="text-brand-500 text-[11px] tracking-[0.3em] font-semibold">01</span>
+          <h3 class="font-display text-2xl text-forest-900">고객 정보</h3>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="text-stone-700 text-xs mb-2 block">이름 <span class="text-brand-500">*</span></label>
+            <input type="text" name="name" required class="inq-input">
+          </div>
+          <div>
+            <label class="text-stone-700 text-xs mb-2 block">연락처 <span class="text-brand-500">*</span></label>
+            <input type="tel" name="phone" required placeholder="010-0000-0000" class="inq-input">
+          </div>
+          <div class="sm:col-span-2">
+            <label class="text-stone-700 text-xs mb-2 block">이메일</label>
+            <input type="email" name="email" placeholder="example@email.com" class="inq-input">
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 여행 정보 -->
+      <div class="bg-stone-50 rounded-sm border border-stone-200 p-7 lg:p-9 space-y-7">
+        <div class="flex items-baseline gap-3">
+          <span class="text-brand-500 text-[11px] tracking-[0.3em] font-semibold">02</span>
+          <h3 class="font-display text-2xl text-forest-900">여행 정보</h3>
+        </div>
+
+        <div>
+          <label class="text-stone-700 text-xs mb-3 block">여행 종류 <span class="text-brand-500">*</span></label>
+          <div class="chip-group">
+            <label class="chip"><input type="radio" name="tour_type" value="골프 투어" required><span>골프 투어</span></label>
+            <label class="chip"><input type="radio" name="tour_type" value="VIP 투어"><span>VIP 투어</span></label>
+            <label class="chip"><input type="radio" name="tour_type" value="그룹 맞춤 투어"><span>그룹 맞춤 투어</span></label>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-stone-700 text-xs mb-3 block">여행 지역 <span class="text-brand-500">*</span></label>
+          <div class="chip-group">
+            <label class="chip"><input type="radio" name="region" value="미주·하와이·유럽" required><span>미주·하와이·유럽</span></label>
+            <label class="chip"><input type="radio" name="region" value="일본"><span>일본</span></label>
+            <label class="chip"><input type="radio" name="region" value="태국"><span>태국</span></label>
+            <label class="chip"><input type="radio" name="region" value="베트남"><span>베트남</span></label>
+            <label class="chip"><input type="radio" name="region" value="필리핀"><span>필리핀</span></label>
+            <label class="chip"><input type="radio" name="region" value="몽골"><span>몽골</span></label>
+            <label class="chip"><input type="radio" name="region" value="스페인·포르투갈"><span>스페인·포르투갈</span></label>
+            <label class="chip"><input type="radio" name="region" value="크로아티아"><span>크로아티아</span></label>
+            <label class="chip"><input type="radio" name="region" value="기타/미정"><span>기타·미정</span></label>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="text-stone-700 text-xs mb-2 block">희망 일정 <span class="text-brand-500">*</span></label>
+            <input type="date" name="travel_date" required class="inq-input">
+          </div>
+          <div>
+            <label class="text-stone-700 text-xs mb-2 block">출발 공항</label>
+            <select name="airport" class="inq-input">
+              <option value="">선택해 주세요</option>
+              <option value="서울(인천/김포)">서울 (인천/김포)</option>
+              <option value="김해">김해</option>
+              <option value="청주">청주</option>
+              <option value="광주(무안)">광주 (무안)</option>
+              <option value="대구">대구</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-stone-700 text-xs mb-3 block">여행 인원 <span class="text-brand-500">*</span></label>
+          <div class="chip-group">
+            <label class="chip"><input type="radio" name="party_size" value="1명" required><span>1명</span></label>
+            <label class="chip"><input type="radio" name="party_size" value="2명"><span>2명</span></label>
+            <label class="chip"><input type="radio" name="party_size" value="3명"><span>3명</span></label>
+            <label class="chip"><input type="radio" name="party_size" value="4명"><span>4명</span></label>
+            <label class="chip"><input type="radio" name="party_size" value="5-8명"><span>5-8명</span></label>
+            <label class="chip"><input type="radio" name="party_size" value="9-12명"><span>9-12명</span></label>
+            <label class="chip"><input type="radio" name="party_size" value="12명 이상"><span>12명 이상</span></label>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-stone-700 text-xs mb-3 block">객실 수</label>
+          <div class="chip-group">
+            <label class="chip"><input type="radio" name="rooms" value="1개"><span>1개</span></label>
+            <label class="chip"><input type="radio" name="rooms" value="2개"><span>2개</span></label>
+            <label class="chip"><input type="radio" name="rooms" value="3개"><span>3개</span></label>
+            <label class="chip"><input type="radio" name="rooms" value="4개"><span>4개</span></label>
+            <label class="chip"><input type="radio" name="rooms" value="5개 이상"><span>5개 이상</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 요청 사항 -->
+      <div class="bg-stone-50 rounded-sm border border-stone-200 p-7 lg:p-9">
+        <div class="flex items-baseline gap-3 mb-6">
+          <span class="text-brand-500 text-[11px] tracking-[0.3em] font-semibold">03</span>
+          <h3 class="font-display text-2xl text-forest-900">요청 사항</h3>
+        </div>
+        <label class="text-stone-700 text-xs mb-2 block">기타 요청 사항</label>
+        <textarea name="notes" rows="5" placeholder="기타 요청 사항이나 추가 문의를 자유롭게 작성해 주세요." class="inq-input resize-none"></textarea>
+      </div>
+
+      <!-- 동의 -->
+      <label class="flex items-start gap-3 cursor-pointer bg-stone-50 border border-stone-200 rounded-sm p-5">
+        <input type="checkbox" name="privacy_consent" required class="mt-1 w-4 h-4 accent-brand-500 shrink-0">
+        <span class="text-sm text-stone-700">
+          <span class="text-brand-500 font-medium">[필수]</span> 개인정보 수집 및 이용에 동의합니다.
+          <span class="block text-xs text-stone-500 mt-1">상담 목적 외 사용되지 않으며, 회신 완료 후 3개월 내 파기됩니다.</span>
+        </span>
+      </label>
+
+      <!-- 액션 -->
+      <div class="flex gap-3 pt-2">
+        <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-brand-500 text-white font-semibold hover:bg-brand-700 transition">
+          문의 보내기
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <button type="reset" class="px-7 py-4 rounded-full border border-stone-300 text-stone-700 hover:border-forest-900 hover:text-forest-900 transition">
+          다시 작성
+        </button>
+      </div>
+    </form>
+
+    <!-- 제출 완료 메시지 -->
+    <div id="inquiry-success" class="hidden bg-white border-2 border-brand-500 rounded-sm p-10 text-center">
+      <div class="w-14 h-14 rounded-full bg-brand-500 grid place-items-center mx-auto mb-5">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h3 class="font-display text-2xl text-forest-900 mb-2">문의가 정상 접수되었습니다.</h3>
+      <p class="text-stone-600 text-sm">영업일 기준 24시간 이내에 회신드리겠습니다.<br/>긴급 문의는 070-4349-1724로 연락주세요.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ========== CUSTOMER SUPPORT / FAQ ========== -->
 <section id="faq" class="py-24 lg:py-32 bg-stone-50">
   <div class="max-w-4xl mx-auto px-6 lg:px-10">
@@ -668,6 +841,42 @@ const menu = document.getElementById('mobile-menu');
 document.getElementById('menu-btn').addEventListener('click', () => menu.classList.add('open'));
 document.getElementById('menu-close').addEventListener('click', () => menu.classList.remove('open'));
 menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+// Travel inquiry form submission
+// TODO: Replace mailto fallback with Formspree/Netlify Forms/custom backend when ready
+function submitInquiry(e) {
+  e.preventDefault();
+  const form = e.target;
+  if (!form.reportValidity()) return false;
+
+  const d = new FormData(form);
+  const fields = {
+    '이름':       d.get('name'),
+    '연락처':     d.get('phone'),
+    '이메일':     d.get('email') || '-',
+    '여행 종류':  d.get('tour_type'),
+    '여행 지역':  d.get('region'),
+    '희망 일정':  d.get('travel_date'),
+    '출발 공항':  d.get('airport') || '-',
+    '여행 인원':  d.get('party_size'),
+    '객실 수':    d.get('rooms') || '-',
+    '기타 요청':  d.get('notes') || '-'
+  };
+  const body = Object.entries(fields).map(([k,v]) => `${k}: ${v}`).join('\n');
+  const subject = `[여행문의] ${fields['이름']} - ${fields['여행 종류']} / ${fields['여행 지역']}`;
+
+  // Fallback: open user's email client with prefilled body
+  window.location.href = `mailto:info@origintour.kr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  // UI feedback
+  setTimeout(() => {
+    form.style.display = 'none';
+    document.getElementById('inquiry-success').classList.remove('hidden');
+    document.getElementById('inquiry-success').scrollIntoView({ behavior:'smooth', block:'center' });
+  }, 400);
+
+  return false;
+}
 </script>
 </body>
 </html>
