@@ -68,7 +68,7 @@ header.solid { background: rgba(11,27,61,.95); backdrop-filter: blur(12px); box-
 <body class="bg-stone-50">
 
 <!-- ========== HEADER ========== -->
-<header id="header" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 solid">
+<header id="header" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
     <a href="index.html" class="flex items-center group">
       <img src="assets/origintour-logo.png" alt="ORIGINTOUR" class="h-5 w-auto" style="filter: brightness(0) invert(1);">
@@ -106,13 +106,12 @@ header.solid { background: rgba(11,27,61,.95); backdrop-filter: blur(12px); box-
         </div>
       </div>
       <a href="index.html#reviews" class="nav-link">여행후기</a>
-      <a href="inquiry.html" class="nav-link">여행문의</a>
       <a href="index.html#faq" class="nav-link">고객센터</a>
     </nav>
 
     <div class="hidden lg:flex items-center gap-4">
       <a href="tel:070-4349-1724" class="text-white/80 text-sm hover:text-sand-300">070-4349-1724</a>
-      <a href="index.html#contact" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-500 text-white font-semibold text-sm hover:bg-brand-700 transition">
+      <a href="inquiry.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-500 text-white font-semibold text-sm hover:bg-brand-700 transition">
         여행 신청
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -153,7 +152,6 @@ header.solid { background: rgba(11,27,61,.95); backdrop-filter: blur(12px); box-
       </ul>
     </div>
     <a href="index.html#reviews" class="block">여행후기</a>
-    <a href="inquiry.html" class="block">여행문의</a>
     <a href="index.html#faq" class="block">고객센터</a>
   </nav>
 </aside>
@@ -659,6 +657,12 @@ function render() {
 
 window.addEventListener('hashchange', render);
 window.addEventListener('DOMContentLoaded', render);
+
+// Header — transparent at top, solid when scrolled
+const header = document.getElementById('header');
+const onHeaderScroll = () => header.classList.toggle('solid', window.scrollY > 60);
+window.addEventListener('scroll', onHeaderScroll, { passive:true });
+onHeaderScroll();
 
 // Mobile menu
 const menu = document.getElementById('mobile-menu');
