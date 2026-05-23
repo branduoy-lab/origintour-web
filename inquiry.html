@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>여행 문의 | 오리진투어</title>
+<meta name="description" content="오리진투어 여행 문의 신청 - 골프·VIP·그룹 맞춤 투어 상담 신청">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        forest: { 50:'#f3f5fc', 100:'#dfe4f2', 500:'#2A3C7A', 700:'#15265A', 900:'#0B1B3D' },
+        sand:   { 100:'#f1f3f8', 300:'#c4cbd8', 500:'#8b94a8', 700:'#5b6478' },
+        brand:  { 300:'#5B7AD1', 500:'#1E47B5', 700:'#163688' },
+      },
+      fontFamily: {
+        sans: ['Pretendard','Inter','Apple SD Gothic Neo','system-ui','sans-serif'],
+        serif: ['Cormorant Garamond','serif'],
+      }
+    }
+  }
+}
+</script>
+<style>
+html { scroll-behavior: smooth; }
+body { font-family: 'Pretendard','Inter','Apple SD Gothic Neo',sans-serif; color:#0a2a21; }
+.font-display { font-family:'Cormorant Garamond', serif; font-weight:500; letter-spacing:-0.01em; }
+
+.reveal { opacity:0; transform: translateY(28px); transition: opacity .9s ease, transform .9s ease; }
+.reveal.in { opacity:1; transform: translateY(0); }
+
+.nav-link { position:relative; padding:.25rem 0; }
+.nav-link::after { content:''; position:absolute; left:0; bottom:-6px; height:1.5px; width:0; background:#1E47B5; transition: width .3s ease; }
+.nav-link:hover::after, .nav-link.active::after { width:100%; }
+
+header.solid { background: rgba(11,27,61,.95); backdrop-filter: blur(12px); box-shadow: 0 1px 0 rgba(255,255,255,.06); }
+
+#mobile-menu { transform: translateX(100%); transition: transform .35s ease; }
+#mobile-menu.open { transform: translateX(0); }
+
+/* Inquiry form chip group */
+.chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; cursor: pointer; user-select: none; }
+.chip input { position: absolute; opacity: 0; pointer-events: none; }
+.chip span {
+  display: inline-block; padding: 8px 16px; border-radius: 9999px;
+  border: 1px solid #d6d3d1; font-size: 13px; color: #44403c; background: white;
+  transition: all .18s ease;
+}
+.chip:hover span { border-color: #1E47B5; color: #15265A; }
+.chip input:checked + span { background: #1E47B5; border-color: #1E47B5; color: #fff; }
+.inq-input {
+  width: 100%; padding: 12px 16px; border: 1px solid #d6d3d1; border-radius: 2px;
+  font-size: 14px; background: white; transition: border-color .18s ease;
+}
+.inq-input:focus { outline: none; border-color: #1E47B5; }
+.inq-input::placeholder { color: #a8a29e; }
+</style>
+</head>
+<body class="bg-stone-50">
+
+<!-- ========== HEADER ========== -->
+<header id="header" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 solid">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
+    <a href="index.html" class="flex items-center group">
+      <img src="assets/origintour-logo.png" alt="ORIGINTOUR" class="h-5 w-auto" style="filter: brightness(0) invert(1);">
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-9 text-[14px] text-white/90">
+      <a href="index.html#about" class="nav-link">회사소개</a>
+      <div class="relative group">
+        <a href="index.html#golf" class="nav-link flex items-center gap-1.5">
+          골프투어
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4.5l3 3 3-3"/></svg>
+        </a>
+        <div class="absolute top-full left-1/2 -translate-x-1/2 pt-5 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition duration-200">
+          <div class="bg-white shadow-2xl rounded-sm py-3 w-56 border border-stone-100">
+            <a href="tour.html#usa-hawaii-europe" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">미주/하와이/유럽</a>
+            <a href="tour.html#japan" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">일본</a>
+            <a href="tour.html#thailand" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">태국</a>
+            <a href="tour.html#vietnam" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">베트남</a>
+            <a href="tour.html#philippines" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">필리핀</a>
+            <a href="tour.html#mongolia" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">몽골</a>
+            <a href="tour.html#value-sea" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">동남아 가성비</a>
+          </div>
+        </div>
+      </div>
+      <div class="relative group">
+        <a href="index.html#vip" class="nav-link flex items-center gap-1.5">
+          VIP투어
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4.5l3 3 3-3"/></svg>
+        </a>
+        <div class="absolute top-full left-1/2 -translate-x-1/2 pt-5 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition duration-200">
+          <div class="bg-white shadow-2xl rounded-sm py-3 w-56 border border-stone-100">
+            <a href="tour.html#spain-portugal" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">스페인 & 포르투갈</a>
+            <a href="tour.html#croatia" class="block px-5 py-2.5 text-stone-700 text-sm hover:bg-stone-50 hover:text-sand-700">크로아티아</a>
+          </div>
+        </div>
+      </div>
+      <a href="index.html#reviews" class="nav-link">여행후기</a>
+      <a href="inquiry.html" class="nav-link active">여행문의</a>
+      <a href="index.html#faq" class="nav-link">고객센터</a>
+    </nav>
+
+    <div class="hidden lg:flex items-center gap-4">
+      <a href="tel:070-4349-1724" class="text-white/80 text-sm hover:text-sand-300">070-4349-1724</a>
+      <a href="inquiry.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-500 text-white font-semibold text-sm hover:bg-brand-700 transition">
+        여행 신청
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <button id="menu-btn" class="lg:hidden text-white" aria-label="menu">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ========== MOBILE MENU ========== -->
+<aside id="mobile-menu" class="fixed inset-y-0 right-0 w-[85%] max-w-sm bg-forest-900 z-[60] p-8 flex flex-col">
+  <div class="flex justify-end">
+    <button id="menu-close" class="text-white" aria-label="close">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+    </button>
+  </div>
+  <nav class="mt-8 space-y-5 text-white text-xl font-display overflow-y-auto flex-1">
+    <a href="index.html#about" class="block">회사소개</a>
+    <div>
+      <div class="text-white">골프투어</div>
+      <ul class="mt-2 pl-3 space-y-1.5 text-sm text-white/70 font-sans">
+        <li><a href="tour.html#usa-hawaii-europe" class="block py-1">· 미주/하와이/유럽</a></li>
+        <li><a href="tour.html#japan" class="block py-1">· 일본</a></li>
+        <li><a href="tour.html#thailand" class="block py-1">· 태국</a></li>
+        <li><a href="tour.html#vietnam" class="block py-1">· 베트남</a></li>
+        <li><a href="tour.html#philippines" class="block py-1">· 필리핀</a></li>
+        <li><a href="tour.html#mongolia" class="block py-1">· 몽골</a></li>
+        <li><a href="tour.html#value-sea" class="block py-1">· 동남아 가성비</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="text-white">VIP투어</div>
+      <ul class="mt-2 pl-3 space-y-1.5 text-sm text-white/70 font-sans">
+        <li><a href="tour.html#spain-portugal" class="block py-1">· 스페인 & 포르투갈</a></li>
+        <li><a href="tour.html#croatia" class="block py-1">· 크로아티아</a></li>
+      </ul>
+    </div>
+    <a href="index.html#reviews" class="block">여행후기</a>
+    <a href="inquiry.html" class="block">여행문의</a>
+    <a href="index.html#faq" class="block">고객센터</a>
+  </nav>
+</aside>
+
+<!-- ========== PAGE INTRO ========== -->
+<section class="bg-forest-900 text-white pt-32 lg:pt-40 pb-16 lg:pb-20 relative overflow-hidden">
+  <div class="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-brand-500/10 blur-3xl"></div>
+  <div class="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full bg-brand-500/5 blur-3xl"></div>
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-10">
+    <a href="index.html" class="reveal inline-flex items-center gap-2 text-white/70 text-sm mb-6 hover:text-brand-300 transition">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      홈으로
+    </a>
+    <p class="reveal text-brand-300 text-[11px] tracking-[0.4em] mb-4">TRAVEL INQUIRY</p>
+    <h1 class="reveal font-display text-[clamp(2.2rem,5vw,4rem)] leading-[1.1] mb-5">여행 문의.</h1>
+    <p class="reveal text-white/75 text-base lg:text-lg max-w-2xl leading-relaxed">
+      여행 종류·일정·인원을 알려주시면 전문 상담사가<br class="hidden md:block"/>영업일 기준 24시간 이내에 회신드립니다.
+    </p>
+  </div>
+</section>
+
+<!-- ========== INQUIRY FORM ========== -->
+<section class="py-16 lg:py-24 bg-stone-50">
+  <div class="max-w-3xl mx-auto px-6 lg:px-10">
+
+    <form id="inquiry-form" class="reveal space-y-6" onsubmit="return submitInquiry(event)">
+
+      <!-- 01 고객 정보 -->
+      <div class="bg-white rounded-sm border border-stone-200 p-7 lg:p-9">
+        <div class="flex items-baseline gap-3 mb-7">
+          <span class="text-brand-500 text-[11px] tracking-[0.3em] font-semibold">01</span>
+          <h2 class="font-display text-2xl text-forest-900">고객 정보</h2>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="text-stone-700 text-xs mb-2 block">이름 <span class="text-brand-500">*</span></label>
+            <input type="text" name="name" required class="inq-input">
+          </div>
+          <div>
+            <label class="text-stone-700 text-xs mb-2 block">연락처 <span class="text-brand-500">*</span></label>
+            <input type="tel" name="phone" required placeholder="010-0000-0000" class="inq-input">
+          </div>
+          <div class="sm:col-span-2">
+            <label class="text-stone-700 text-xs mb-2 block">이메일</label>
+            <input type="email" name="email" placeholder="example@email.com" class="inq-input">
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 여행 정보 -->
+      <div class="bg-white rounded-sm border border-stone-200 p-7 lg:p-9 space-y-7">
+        <div class="flex items-baseline gap-3">
+          <span class="text-brand-500 text-[11px] tracking-[0.3em] font-semibold">02</span>
+          <h2 class="font-display text-2xl text-forest-900">여행 정보</h2>
+        </div>
+
+        <div>
+          <label class="text-stone-700 text-xs mb-3 block">여행 종류 <span class="text-brand-500">*</span></label>
+          <div class="chip-group">
+            <label class="chip"><input type="radio" name="tour_type" value="골프 투어" required><span>골프 투어</span></label>
+            <label class="chip"><input type="radio" name="tour_type" value="VIP 투어"><span>VIP 투어</span></label>
+            <label class="chip"><input type="radio" name="tour_type" value="그룹 맞춤 투어"><span>그룹 맞춤 투어</span></label>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-stone-700 text-xs mb-3 block">여행 지역 <span class="text-brand-500">*</span></label>
+          <div class="chip-group">
+            <label class="chip"><input type="radio" name="region" value="미주·하와이·유럽" required><span>미주·하와이·유럽</span></label>
+            <label class="chip"><input type="radio" name="region" value="일본"><span>일본</span></label>
+            <label class="chip"><input type="radio" name="region" value="태국"><span>태국</span></label>
+            <label class="chip"><input type="radio" name="region" value="베트남"><span>베트남</span></label>
+            <label class="chip"><input type="radio" name="region" value="필리핀"><span>필리핀</span></label>
+            <label class="chip"><input type="radio" name="region" value="몽골"><span>몽골</span></label>
+            <label class="chip"><input type="radio" name="region" value="스페인·포르투갈"><span>스페인·포르투갈</span></label>
+            <label class="chip"><input type="radio" name="region" value="크로아티아"><span>크로아티아</span></label>
+            <label class="chip"><input type="radio" name="region" value="기타/미정"><span>기타·미정</span></label>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label class="text-stone-700 text-xs mb-2 block">희망 일정 <span class="text-brand-500">*</span></label>
+            <input type="date" name="travel_date" required class="inq-input">
+          </div>
+          <div>
+            <label class="text-stone-700 text-xs mb-2 block">출발 공항</label>
+            <select name="airport" class="inq-input">
+              <option value="">선택해 주세요</option>
+              <option value="서울(인천/김포)">서울 (인천/김포)</option>
+              <option value="김해">김해</option>
+              <option value="청주">청주</option>
+              <option value="광주(무안)">광주 (무안)</option>
+              <option value="대구">대구</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-stone-700 text-xs mb-3 block">여행 인원 <span class="text-brand-500">*</span></label>
+          <div class="chip-group">
+            <label class="chip"><input type="radio" name="party_size" value="1명" required><span>1명</span></label>
+            <label class="chip"><input type="radio" name="party_size" value="2명"><span>2명</span></label>
+            <label class="chip"><input type="radio" name="party_size" value="3명"><span>3명</span></label>
+            <label class="chip"><input type="radio" name="party_size" value="4명"><span>4명</span></label>
+            <label class="chip"><input type="radio" name="party_size" value="5-8명"><span>5-8명</span></label>
+            <label class="chip"><input type="radio" name="party_size" value="9-12명"><span>9-12명</span></label>
+            <label class="chip"><input type="radio" name="party_size" value="12명 이상"><span>12명 이상</span></label>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-stone-700 text-xs mb-3 block">객실 수</label>
+          <div class="chip-group">
+            <label class="chip"><input type="radio" name="rooms" value="1개"><span>1개</span></label>
+            <label class="chip"><input type="radio" name="rooms" value="2개"><span>2개</span></label>
+            <label class="chip"><input type="radio" name="rooms" value="3개"><span>3개</span></label>
+            <label class="chip"><input type="radio" name="rooms" value="4개"><span>4개</span></label>
+            <label class="chip"><input type="radio" name="rooms" value="5개 이상"><span>5개 이상</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 요청 사항 -->
+      <div class="bg-white rounded-sm border border-stone-200 p-7 lg:p-9">
+        <div class="flex items-baseline gap-3 mb-6">
+          <span class="text-brand-500 text-[11px] tracking-[0.3em] font-semibold">03</span>
+          <h2 class="font-display text-2xl text-forest-900">요청 사항</h2>
+        </div>
+        <label class="text-stone-700 text-xs mb-2 block">기타 요청 사항</label>
+        <textarea name="notes" rows="5" placeholder="기타 요청 사항이나 추가 문의를 자유롭게 작성해 주세요." class="inq-input resize-none"></textarea>
+      </div>
+
+      <!-- 동의 -->
+      <label class="flex items-start gap-3 cursor-pointer bg-white border border-stone-200 rounded-sm p-5">
+        <input type="checkbox" name="privacy_consent" required class="mt-1 w-4 h-4 accent-brand-500 shrink-0">
+        <span class="text-sm text-stone-700">
+          <span class="text-brand-500 font-medium">[필수]</span> 개인정보 수집 및 이용에 동의합니다.
+          <span class="block text-xs text-stone-500 mt-1">상담 목적 외 사용되지 않으며, 회신 완료 후 3개월 내 파기됩니다.</span>
+        </span>
+      </label>
+
+      <!-- 액션 -->
+      <div class="flex gap-3 pt-2">
+        <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-brand-500 text-white font-semibold hover:bg-brand-700 transition">
+          문의 보내기
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <button type="reset" class="px-7 py-4 rounded-full border border-stone-300 text-stone-700 hover:border-forest-900 hover:text-forest-900 transition">
+          다시 작성
+        </button>
+      </div>
+    </form>
+
+    <!-- 제출 완료 -->
+    <div id="inquiry-success" class="hidden bg-white border-2 border-brand-500 rounded-sm p-10 lg:p-12 text-center">
+      <div class="w-14 h-14 rounded-full bg-brand-500 grid place-items-center mx-auto mb-5">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h2 class="font-display text-2xl lg:text-3xl text-forest-900 mb-3">문의가 정상 접수되었습니다.</h2>
+      <p class="text-stone-600 text-sm mb-8">영업일 기준 24시간 이내에 회신드리겠습니다.<br/>긴급 문의는 070-4349-1724로 연락주세요.</p>
+      <a href="index.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-forest-900 text-white text-sm hover:bg-brand-500 transition">
+        홈으로 돌아가기
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-forest-900 text-white/60 border-t border-white/10 py-12">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+    <div class="flex items-center gap-4">
+      <img src="assets/origintour-logo.png" alt="ORIGINTOUR" class="h-5 w-auto opacity-90" style="filter: brightness(0) invert(1);">
+      <div class="text-xs">
+        <div class="text-white">(주)오리진투어</div>
+        <div>대표 송종선 · 사업자 482-88-03508</div>
+      </div>
+    </div>
+    <div class="text-xs">서울시 성동구 성수일로 99 서울숲AK밸리 지식산업센터 802-38호</div>
+    <div class="text-xs">© 2026 Origin Tour</div>
+  </div>
+</footer>
+
+<script>
+// Header scroll (always solid on this page; but keep handler for consistency)
+const header = document.getElementById('header');
+const onScroll = () => header.classList.add('solid');
+window.addEventListener('scroll', onScroll, { passive:true }); onScroll();
+
+// Reveal animation
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Mobile menu
+const menu = document.getElementById('mobile-menu');
+document.getElementById('menu-btn').addEventListener('click', () => menu.classList.add('open'));
+document.getElementById('menu-close').addEventListener('click', () => menu.classList.remove('open'));
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+// Travel inquiry form submission
+// TODO: Replace mailto fallback with Formspree/Netlify Forms/custom backend when ready
+function submitInquiry(e) {
+  e.preventDefault();
+  const form = e.target;
+  if (!form.reportValidity()) return false;
+
+  const d = new FormData(form);
+  const fields = {
+    '이름':       d.get('name'),
+    '연락처':     d.get('phone'),
+    '이메일':     d.get('email') || '-',
+    '여행 종류':  d.get('tour_type'),
+    '여행 지역':  d.get('region'),
+    '희망 일정':  d.get('travel_date'),
+    '출발 공항':  d.get('airport') || '-',
+    '여행 인원':  d.get('party_size'),
+    '객실 수':    d.get('rooms') || '-',
+    '기타 요청':  d.get('notes') || '-'
+  };
+  const body = Object.entries(fields).map(([k,v]) => `${k}: ${v}`).join('\n');
+  const subject = `[여행문의] ${fields['이름']} - ${fields['여행 종류']} / ${fields['여행 지역']}`;
+
+  // Mailto fallback — opens user's email client with prefilled body
+  window.location.href = `mailto:info@origintour.kr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  // UI feedback
+  setTimeout(() => {
+    form.style.display = 'none';
+    document.getElementById('inquiry-success').classList.remove('hidden');
+    document.getElementById('inquiry-success').scrollIntoView({ behavior:'smooth', block:'center' });
+  }, 400);
+
+  return false;
+}
+</script>
+</body>
+</html>
